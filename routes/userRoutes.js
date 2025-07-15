@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-// GET /products
+// GET /users
 router.get('/', (req, res) => {
-  res.send('Fetching all products');
+  res.send('Fetching all users');
 });
 
-// POST /products
+// POST /users
 router.post('/', (req, res) => {
-  res.send('Adding a new product');
+  res.send('Adding a new user');
 });
 
-// GET /products/:id
+// GET /users/:id
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  res.send(`Fetching product with ID: ${id}`);
+  res.send(`Fetching user with ID: ${id}`);
 });
 
 module.exports = router;

@@ -1,30 +1,26 @@
 const express = require('express');
 const app = express();
 
-// Routers
-const studentRoutes = require('./routes/studentRoutes');
-const courseRoutes = require('./routes/courseRoutes');
+// Import route files
+const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
-// Middleware
+// Middleware to parse JSON
 app.use(express.json());
 
-// Home Route
+// Mount the routes
+app.use('/users', userRoutes);
+app.use('/products', productRoutes);
+app.use('/cart', cartRoutes);
+
+// Default route
 app.get('/', (req, res) => {
-  res.send('Welcome to the Student & Course Portal API!');
+  res.send('Welcome to the E-Commerce API!');
 });
 
-// Student Routes
-app.use('/students', studentRoutes);
-
-// Course Routes
-app.use('/courses', courseRoutes);
-
-// 404 Handler (Wildcard)
-app.use( (req, res) => {
-  res.status(404).send('Page not found');
-});
-
-// Start Server
-app.listen(4000, () => {
-  console.log('🚀 Server running on http://localhost:4000');
+// Start server
+const PORT = 4000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
