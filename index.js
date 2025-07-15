@@ -20,7 +20,7 @@ app.use('/students', studentRoutes);
 app.use('/courses', courseRoutes);
 
 // 404 Handler (Wildcard)
-app.use('*', (req, res) => {
+app.use( (req, res) => {
   res.status(404).send('Page not found');
 });
 
