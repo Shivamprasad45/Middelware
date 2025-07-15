@@ -1,18 +1,12 @@
 const express = require('express');
 const app = express();
-
-// Import route files
-const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
-const cartRoutes = require('./routes/cartRoutes');
 
-// Middleware to parse JSON
+// Middleware
 app.use(express.json());
 
-// Mount the routes
-app.use('/users', userRoutes);
+// Mount Product Routes
 app.use('/products', productRoutes);
-app.use('/cart', cartRoutes);
 
 // Default route
 app.get('/', (req, res) => {
@@ -22,5 +16,5 @@ app.get('/', (req, res) => {
 // Start server
 const PORT = 4000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
