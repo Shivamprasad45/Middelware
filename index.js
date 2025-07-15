@@ -1,28 +1,31 @@
 const express = require('express');
 const app = express();
 
-// ✅ Custom Middleware
-const addUserMiddleware = (req, res, next) => {
-  req.user = 'Shivam daddy';
-  next(); // Pass control to next middleware or route
-};
+// Middleware to parse JSON (optional for POST with JSON)
+app.use(express.json());
 
-const logger = (req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
-};
-
-app.use(logger); // Apply to all routes
-
-// ✅ Apply middleware to /welcome route
-app.get('/welcome', addUserMiddleware, (req, res) => {
-  res.send(`<h1>Welcome, ${req.user}!</h1>`);
+// ✅ GET /orders
+app.get('/orders', (req, res) => {
+  res.send('Here is the list of all orders.');
 });
 
-// ✅ Start Server
+// ✅ POST /orders
+app.post('/orders', (req, res) => {
+  res.send('A new order has been created.');
+});
+
+// ✅ GET /users
+app.get('/users', (req, res) => {
+  res.send('Here is the list of all users.');
+});
+
+// ✅ POST /users
+app.post('/users', (req, res) => {
+  res.send('A new user has been added.');
+});
+
+// ✅ Start the server
 const PORT = 3000;
 app.listen(PORT, () => {
-
-console.log(`Server running at http://localhost:${PORT}`);
-
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
