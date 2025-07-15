@@ -1,39 +1,29 @@
 const express = require('express');
 const app = express();
 
-app.use(express.json()); // To parse JSON request bodies
+app.use(express.json());
 
+// ✅ Dynamic route with route and query parameters
+// Example URL: /welcome/Julian?role=Admin
+app.get('/welcome/:username', (req, res) => {
+  const { username } = req.params;     // route param
+  const { role } = req.query;          // query param
 
-app.get("/",(req,res)=>{
+  // Handle missing role
+  if (!role) {
+    return res.status(400).send(`Hi ${username}, please provide your role as a query parameter like ?role=Admin`);
+  }
 
-    res.send("Hello world")
-})
-// ✅ GET /products
-app.get('/products', (req, res) => {
-  res.send('Here is the list of all products.');
+  // Send dynamic response
+  res.send(`Welcome ${username}, your role is ${role}`);
 });
 
-// // ✅ POST /products
-app.post('/products', (req, res) => {
-  res.send('A new product has been added.');
-});
-
-// // ✅ GET /categories
-app.get('/categories', (req, res) => {
-  res.send('Here is the list of all categories.');
-});
-
-// ✅ POST /categories
-app.post('/categories', (req, res) => {
-  res.send('A new category has been created.');
-});
-
-// ✅ Wildcard route for all undefined paths
+// ✅ Fallback 404 route
 app.use((req, res) => {
   res.status(404).send('<h1>404 - Page Not Found</h1>');
 });
 
-// ✅ Start server on port 4000
+// ✅ Start server
 app.listen(4000, () => {
   console.log('Server is running on http://localhost:4000');
 });
